@@ -1,24 +1,18 @@
 const Hapi = require('hapi');
 const chalk = require('chalk');
+const mysql = require('mysql');
+const fs = require('fs');
 const config = require('./config');
+const dbConfig = require('./dbConfig');
 
 const server = new Hapi.Server();
 server.connection(config);
 
-server.route({
-    method: 'GET',
-    path: '/',
-    handler: function (request, reply) {
-        reply('Hello, world!');
-    }
-});
+const normalizedPath = require('path').join(__dirname, 'routes');
 
-server.route({
-    method: 'GET',
-    path: '/{name}',
-    handler: function (request, reply) {
-        reply(`Hello, ${encodeURIComponent(request.params.name)}!`);
-    }
+fs.readdirSync(normalizedPath).forEach(function(file) {
+  const route = require(`./routes/${file}`);
+  server.route(route);
 });
 
 server.start((err) => {

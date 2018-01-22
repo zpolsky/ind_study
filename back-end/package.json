@@ -4,14 +4,15 @@
   "description": "Back-end API to connect database and dashboard",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Zachary Polsky",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.3.0",
-    "hapi": "^16.0.0"
+    "hapi": "^16.0.0",
+    "mysql": "^2.15.0"
   },
   "devDependencies": {
     "nodemon": "^1.14.11"
