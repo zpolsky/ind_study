@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import './index.css';
 
 // Taken from https://serverless-stack.com/chapters/create-a-login-page.html
@@ -28,7 +28,7 @@ export default class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log("this.props", this.props);
-    if (this.state.username == 'zach') {
+    if (this.state.username === 'zach') {
       this.props.store = this.state.username;
     }
   };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Grid, Row, Col } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import './index.css';
 
