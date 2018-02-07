@@ -10,7 +10,7 @@ const route = {
     if (queryCol !== "first_name" && queryCol !== "last_name" && queryCol != "gender") {
       reply("Some error");
     } else {
-      const query = `SELECT ${queryCol} FROM employees LIMIT 10`;
+      const query = `SELECT ${queryCol} FROM employees LIMIT 100`;
       queryDatabase(query)
       .then((result) => {
         reply(result);
