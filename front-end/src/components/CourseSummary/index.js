@@ -10,6 +10,7 @@ class CourseSummary extends Component {
     super(props);
     this.state = {
       course: this.props.course,
+      isExpanded: false,
       showModal: false,
       messageText: '',
       selectedTA: null
@@ -34,7 +35,12 @@ class CourseSummary extends Component {
   }
 
   handleSend(type) {
-    console.log(`${type} to ${this.state.selectedTA}: ${this.state.messageText}`);
+    if (type === 'email') {
+      console.log(`Email to ${this.state.selectedTA}: ${this.state.messageText}`)
+    }
+    else if (type === 'text') {
+      console.log(`Text to ${this.state.selectedTA}: ${this.state.messageText}`)
+    }
     this.setState({
       showModal: false,
       messageText: '',
@@ -57,19 +63,18 @@ class CourseSummary extends Component {
   render() {
     const { id, type, courseName, allTAs, missingTAs } = this.state.course;
 
-    const name = (type != null) ? id + type : id;
+    const name = (type !== null) ? id + type : id;
     const presentTAs = allTAs.length - missingTAs.length;
 
-    const arrow = (this.props.isExpanded) ? "glyphicon glyphicon-chevron-down" : "glyphicon glyphicon-chevron-right";
+    const arrow = (this.state.isExpanded) ? "glyphicon glyphicon-chevron-down" : "glyphicon glyphicon-chevron-right";
 
     const nonExpanded =
     <Row>
       <Col xs={6} md={2} mdOffset={4}>
-        {`CSE ${name}`}
+        CSE {name}
         <br />
-        <a onClick={() => this.props.handleExpand(id)}>
-          Details 
-          <span className={arrow}/>
+        <a onClick={() => this.setState({ isExpanded: !this.state.isExpanded })}>
+          <span className={arrow}/> Details
         </a>
 
       </Col>
@@ -80,19 +85,19 @@ class CourseSummary extends Component {
 
     const missingList = missingTAs.map(TA => {
       return (
-        <React.Fragment>
-          <span
-            className="missing-TA"
-            key={TA}>
+        <Row className="missing-TA" key={TA}>
+          <Col xs={5} md={3} mdOffset={4}>
             {TA}
-          </span>
-          <Button
-            bsStyle="primary"
-            onClick={() => this.handleShow(TA)}>
-            Message
-          </Button>
-          <br/>
-        </React.Fragment>
+          </Col>
+          <Col xs={5} md={2}>
+            <Button
+              className="missing-TA-btn"
+              bsStyle="primary"
+              onClick={() => this.handleShow(TA)}>
+              Message
+            </Button>
+          </Col>
+        </Row>
       );
     });
 
@@ -102,10 +107,9 @@ class CourseSummary extends Component {
       <Row>
         <Col xs={6} md={8} mdOffset={2}>
           <span>Missing TAs: </span>
-          <br/>
-          {missingList}
         </Col>
       </Row>
+      {missingList}
       {/* <MessageModal
         selectedTA={this.state.selectedTA}
         showModal={this.state.showModal}
@@ -130,14 +134,14 @@ class CourseSummary extends Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="primary" onClick={() => this.handleSend('Email')}>Send Email</Button>
-          <Button bsStyle="primary" onClick={() => this.handleSend('Text')}>Send Text</Button>
+          <Button bsStyle="primary" onClick={() => this.handleSend('email')}>Send Email</Button>
+          <Button bsStyle="primary" onClick={() => this.handleSend('text')}>Send Text</Button>
           <Button onClick={this.handleClose}>Cancel</Button>
         </Modal.Footer>
       </Modal>
     </React.Fragment>;
 
-    return (this.props.isExpanded) ? expanded : nonExpanded;
+    return (this.state.isExpanded) ? expanded : nonExpanded;
   }
 }
 
@@ -146,11 +150,10 @@ CourseSummary.propTypes = {
     id: PropTypes.number.isRequired,
     type: PropTypes.string,
     courseName: PropTypes.string,
+    sections: PropTypes.array,
     allTAs: PropTypes.array,
     missingTAs: PropTypes.array
   }),
-  handleExpand: PropTypes.function,
-  isExpanded: PropTypes.boolean
 };
 
 export default CourseSummary;
