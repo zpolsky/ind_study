@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './index.css';
 
 import SectionSummary from '../SectionSummary';
-// import MessageModal from '../MessageModal';
 
 class CourseSummary extends Component {
   constructor(props) {
