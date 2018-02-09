@@ -2,14 +2,19 @@
   text-align: center;
 }
 
-.App-logo {
+/*.App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
+}*/
+
+.logo {
+  zoom: 50%;
+  float: left;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: #a51417;
+  height: 90px;
   padding: 20px;
   color: white;
 }
