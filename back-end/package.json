@@ -12,6 +12,7 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "hapi": "^16.0.0",
+    "joi": "^13.1.2",
     "mysql": "^2.15.0"
   },
   "devDependencies": {

@@ -11,12 +11,26 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       username: this.props.username,
-      courses: getCourses(this.props.username)
+      courses: [],
+      isFetching: true
     };
   }
 
+  componentWillMount() {
+    getCourses(this.props.username)
+    .then((data) => {
+      this.setState({
+        courses: data,
+        isFetching: false
+      });
+    });
+  }
+
   render() {
-    const { username, courses } = this.state;
+    const { username, courses, isFetching } = this.state;
+    if (isFetching) {
+      return <h1>Fetching...</h1>
+    }
     let rows = courses.map(course => {
       return <CourseSummary
         key={course.id}

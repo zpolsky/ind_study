@@ -1,6 +1,9 @@
 const config = {
-  port: 3000,
-  host: 'localhost'
+  port: 8080,
+  host: 'localhost',
+  routes: {
+    cors: true
+  }
 };
 
 module.exports = config;

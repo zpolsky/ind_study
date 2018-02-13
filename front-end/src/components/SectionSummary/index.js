@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Row, Col, Modal, FormGroup, FormControl, ControlLabel, ProgressBar } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-
+import './index.css';
 import MessageModal from '../MessageModal';
 
 class SectionSummary extends Component {
