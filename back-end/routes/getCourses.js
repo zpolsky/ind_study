@@ -1,8 +1,10 @@
+
+const chalk = require('chalk');
+
 const route = {
   method: 'GET',
   path: '/getCourses',
   handler: function (request, reply) {
-    console.log("getCourses called");
     const fakeCourses = [
       {
         id: '131',

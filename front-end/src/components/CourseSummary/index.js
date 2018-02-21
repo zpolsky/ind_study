@@ -20,31 +20,26 @@ class CourseSummary extends Component {
     const presentTAs = allTAs.length - missingTAs.length;
     const arrow = (this.state.isExpanded) ? "glyphicon glyphicon-chevron-down" : "glyphicon glyphicon-chevron-right";
 
-    const nonExpanded =
-    <Row>
-      <Col xs={6} md={2} mdOffset={4}>
-        CSE {id}
-        <br />
-        <a onClick={() => this.setState({ isExpanded: !this.state.isExpanded })}>
-          <span className={arrow}/> Details
-        </a>
-      </Col>
-      <Col xs={6} md={2}>
-        {presentTAs}/{allTAs.length}
-      </Col>
-    </Row>;
-
     const sectionList = sections.map(section => {
       return <SectionSummary key={section.sectionName} section={section}/>
     });
 
-    const expanded =
-    <React.Fragment>
-      {nonExpanded}
-      {sectionList}
-    </React.Fragment>;
-
-    return (this.state.isExpanded) ? expanded : nonExpanded;
+    return (
+      <Row>
+        <Col xs={6} md={4} mdOffset={4}>
+          <div>
+            <p>
+              <span>CSE {id}</span>
+              <span className="attendance-fraction">{presentTAs}/{allTAs.length}</span>
+            </p>
+            <a onClick={() => this.setState({ isExpanded: !this.state.isExpanded })}>
+              <span className={arrow}/> Details
+            </a>
+            {this.state.isExpanded && sectionList}
+          </div>
+        </Col>
+      </Row>
+    );
   }
 }
 

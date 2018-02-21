@@ -5,5 +5,8 @@ export default function(username) {
       .then((data) => {
         resolve(data);
       })
+      .catch(error => {
+        reject(error);
+      })
   });
 }

@@ -1,7 +1,11 @@
+.section-div {
+  margin-bottom: 5%;
+}
+
 .missing-TA {
   margin-top: 0.5%;
 }
 
 .missing-TA-btn {
-  float: left;
+  float: right;
 }

@@ -35,38 +35,27 @@ class SectionSummary extends Component {
 
     const missingList = missingTAs.map(TA => {
       return (
-        <Row key={TA} className="missing-TA">
-          <Col xs={5} md={2} mdOffset={5}>
-            {TA}
-          </Col>
-          <Col xs={5} md={3}>
-            <Button
-              className="missing-TA-btn"
-              bsStyle="primary"
-              onClick={() => this.modal.handleShow(TA)}>
-              Message
-            </Button>
-          </Col>
-        </Row>
+        <div key={TA} className="missing-TA">
+          <span>{TA}</span>
+          <Button
+            bsStyle="primary"
+            onClick={() => this.modal.handleShow(TA)}>
+            Message
+          </Button>
+        </div>
       );
     });
 
-    const missingMessage = <span>Missing TAs:<br/></span>;
+    const missingMessage = <p>Missing TAs:</p>;
 
     return (
-      <React.Fragment>
-        <Row>
-          <Col xs={6} md={2} mdOffset={5}>
-            {sectionName} ({presentTAs}/{TAs.length})
-            <br />
-            <ProgressBar now={percent} label={`${percent}%`}/>
-            <br />
-            {(missingTAs.length > 0) ? missingMessage : null}
-          </Col>
-        </Row>
+      <div className="section-div">
+        <p>{sectionName} ({presentTAs}/{TAs.length})</p>
+        <ProgressBar now={percent} label={`${percent}%`}/>
+        <p>{(missingTAs.length > 0) ? missingMessage : null}</p>
         {missingList}
         {modal}
-      </React.Fragment>
+      </div>
     );
   }
 }
