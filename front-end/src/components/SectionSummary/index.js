@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Row, Col, Modal, FormGroup, FormControl, ControlLabel, ProgressBar } from 'react-bootstrap';
+import { Button, ProgressBar } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import './index.css';
 import MessageModal from '../MessageModal';
@@ -23,7 +23,8 @@ class SectionSummary extends Component {
   }
 
   render() {
-    const { sectionName, time, TAs, missingTAs } = this.state.section;
+    // const { sectionName, time, TAs, missingTAs } = this.state.section;
+    const { sectionName, TAs, missingTAs } = this.state.section;
     const presentTAs = TAs.length - missingTAs.length;
     const percent = Math.round(presentTAs/TAs.length * 100);
 

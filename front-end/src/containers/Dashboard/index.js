@@ -38,7 +38,6 @@ class Dashboard extends Component {
     <div className="loader">
       <ClipLoader color={'#005f85'} loading={isFetching}/>
     </div>;
-
     let rows = courses.map(course => {
       return <CourseSummary
         key={course.id}
@@ -46,7 +45,7 @@ class Dashboard extends Component {
       />
     });
     const dashboard =
-      <div>
+      <div className="center-div">
         <h3>Welcome {this.props.username}!</h3>
         <div className="container-fluid">
           <h4>Courses</h4>

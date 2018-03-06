@@ -3,7 +3,7 @@ const dbConfig = {
   user: "root",
   password: "root",
   port: "8889",
-  database: "employees"
+  database: "TA_portal"
 }
 
 module.exports = dbConfig;

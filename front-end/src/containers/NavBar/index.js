@@ -3,7 +3,6 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import {
   BrowserRouter as Router,
   Route,
-  Link
 } from 'react-router-dom'
 
 import Login from '../Login';
@@ -22,12 +21,8 @@ class NavBar extends Component {
   render() {
     const { username } = this.state;
 
-    const navStyle = {
-      "text-align": "left"
-    };
-
     const myNav =
-    <Navbar inverse collapseOnSelect style={navStyle}>
+    <Navbar inverse collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
           <a href="#">TA Portal</a>
@@ -36,15 +31,9 @@ class NavBar extends Component {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <NavItem eventKey={1} href="#">
-            <Link to="/">Login</Link>
-          </NavItem>
-          <NavItem eventKey={2} href="#">
-            <Link to="/dashboard">Dashboard</Link>
-          </NavItem>
-          <NavItem eventKey={3} href="#">
-            <Link to="/profile">Profile</Link>
-          </NavItem>
+          <NavItem eventKey={1} href="/login">Login</NavItem>
+          <NavItem eventKey={2} href="/dashboard">Dashboard</NavItem>
+          <NavItem eventKey={3} href="/profile">Profile</NavItem>
         </Nav>
       </Navbar.Collapse>
     </Navbar>;
@@ -55,11 +44,14 @@ class NavBar extends Component {
         <div>
           {myNav}
           <Route exact path='/' component={Login}/>
-          <Route path='/dashboard' render={(props) => (
-            <Dashboard {...props} username="Zach" />
+          <Route path='/login' render={props => (
+            <Login {...props} />
           )}/>
-          <Route path='/profile' render={(props) => (
-            <Profile {...props} username="Zach" />
+          <Route path='/dashboard' render={props => (
+            <Dashboard {...props} username={username} />
+          )}/>
+          <Route path='/profile' render={props => (
+            <Profile {...props} username={username} />
           )}/>
         </div>
       </Router>

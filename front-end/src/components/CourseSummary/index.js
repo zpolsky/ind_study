@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Row, Col, Modal, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import './index.css';
 
@@ -15,7 +15,7 @@ class CourseSummary extends Component {
   }
 
   render() {
-    const { id, courseName, sections, allTAs, missingTAs } = this.state.course;
+    const { id, sections, allTAs, missingTAs } = this.state.course;
 
     const presentTAs = allTAs.length - missingTAs.length;
     const arrow = (this.state.isExpanded) ? "glyphicon glyphicon-chevron-down" : "glyphicon glyphicon-chevron-right";
