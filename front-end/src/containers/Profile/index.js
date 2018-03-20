@@ -92,6 +92,7 @@ class Profile extends Component {
         <Button bsStyle="primary" onClick={() => alert('Submit missing pressed')}>Submit Missing Form</Button><br/>
         <Button bsStyle="primary" onClick={() => alert('Add course pressed')}>Add Course</Button><br/>
         <Button bsStyle="primary" onClick={() => this.modal.handleShow()}>Add TA</Button>
+        {modal}
       </div>
     );
   }

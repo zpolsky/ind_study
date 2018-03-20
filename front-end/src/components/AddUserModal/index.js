@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Modal, FormGroup, ControlLabel, FormControl, Radio } from 'react-bootstrap';
+import { Button, Radio, Modal, FormGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+
+import FieldGroup from './FieldGroup';
 
 class AddUserModal extends Component {
   constructor(props) {
@@ -11,7 +13,7 @@ class AddUserModal extends Component {
         username: '',
         firstName: '',
         lastName: '',
-        role: '',
+        role: 'TA', // default value
         email: '',
         phone: ''
       }
@@ -20,6 +22,7 @@ class AddUserModal extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getValidationState = this.getValidationState.bind(this);
   }
 
   handleClose() {
@@ -29,7 +32,7 @@ class AddUserModal extends Component {
         username: '',
         firstName: '',
         lastName: '',
-        role: '',
+        role: 'TA',
         email: '',
         phone: ''
       }
@@ -43,32 +46,42 @@ class AddUserModal extends Component {
   }
 
   // Adapted from https://reactjs.org/docs/forms.html
-  handleInput(type, e) {
+  handleInput(type, event) {
     const userData = Object.assign({}, this.state.userData);
-    userData[type] = e.target.value;
+    userData[type] = event.target.value;
     this.setState({userData});
-    // const { value, name } = event.target;
-    // this.setState({
-    //   [name]: value
-    // });
   }
 
   handleSubmit() {
-    // const { userData } = this.state;
-    this.props.handleSubmit(this.state.userData);
+    const { userData } = this.state;
+    // let valid = true;
+    // for (let prop in userData) {
+    //   if (userData[prop] === '') {
+    //     valid = false;
+    //     break;
+    //   }
+    // }
+    // if (valid) {
+    //   this.props.handleSubmit(userData);
+    //   this.handleClose();
+    // }
+    this.props.handleSubmit(userData);
     this.handleClose();
   }
 
-  render() {
-    const FieldGroup = ({id, label, ...props}) => {
-      return (
-        <FormGroup controlId={id}>
-          <ControlLabel>{label}</ControlLabel>
-          <FormControl {...props} />
-        </FormGroup>
-      );
+  getValidationState() {
+    const { userData } = this.state;
+    let valid = true;
+    for (let prop in userData) {
+      if (userData[prop] === '') {
+        valid = false;
+        break;
+      }
     }
+    return (valid) ? 'success' : 'error';
+  }
 
+  render() {
     return (
       <Modal show={this.state.showModal} onHide={this.handleClose}>
         <Modal.Header closeButton>
@@ -82,6 +95,7 @@ class AddUserModal extends Component {
               label="Username"
               placeholder="Enter WUSTL key"
               onChange={e => this.handleInput('username', e)}
+              validationState={this.getValidationState}
             />
             <FieldGroup
               id="formControlsFirstName"
@@ -89,6 +103,7 @@ class AddUserModal extends Component {
               label="First Name"
               placeholder="Enter first name"
               onChange={e => this.handleInput('firstName', e)}
+              validationState={this.getValidationState}
             />
             <FieldGroup
               id="formControlsLastName"
@@ -96,11 +111,31 @@ class AddUserModal extends Component {
               label="Last Name"
               placeholder="Enter last name"
               onChange={e => this.handleInput('lastName', e)}
+              validationState={this.getValidationState}
             />
             <FormGroup>
-              <Radio name="radioRole" inline>TA</Radio>{' '}
-              <Radio name="radioRole" inline>Admin</Radio>{' '}
-              <Radio name="radioRole" inline>Full</Radio>
+              <Radio
+                name="radioRole"
+                value="TA"
+                onChange={e => this.handleInput('role', e)}
+                defaultChecked
+                inline>
+                TA
+              </Radio>{' '}
+              <Radio
+                name="radioRole"
+                value="Admin"
+                onChange={e => this.handleInput('role', e)}
+                inline>
+                Admin
+              </Radio>{' '}
+              <Radio
+                name="radioRole"
+                value="Full"
+                onChange={e => this.handleInput('role', e)}
+                inline>
+                Full
+              </Radio>
             </FormGroup>
             <FieldGroup
               id="formControlsEmail"
@@ -108,6 +143,7 @@ class AddUserModal extends Component {
               label="Email"
               placeholder="Enter email"
               onChange={e => this.handleInput('email', e)}
+              validationState={this.getValidationState}
             />
             <FieldGroup
               id="formControlsPhone"
@@ -115,16 +151,8 @@ class AddUserModal extends Component {
               label="Phone"
               placeholder="Enter phone number"
               onChange={e => this.handleInput('phone', e)}
+              validationState={this.getValidationState}
             />
-            {/* <FormGroup controlId="userData">
-              <ControlLabel>Message to {this.state.selectedTA}:</ControlLabel>
-              <FormControl
-                type="text"
-                value={this.state.messageText}
-                placeholder="Enter message"
-                onChange={this.handleMessageInput}
-              />
-            </FormGroup> */}
           </form>
         </Modal.Body>
         <Modal.Footer>
